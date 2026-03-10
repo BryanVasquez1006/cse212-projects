@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 public static class Arrays
 {
     /// <summary>
@@ -8,12 +10,19 @@ public static class Arrays
     /// <returns>array of doubles that are the multiples of the supplied number</returns>
     public static double[] MultiplesOf(double number, int length)
     {
-        // TODO Problem 1 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+        //creating the list where the numbers will be stored on.
+        List<double> totalNums = new() {};
+        
+        //looping through the length of numbers given
+        for (int i = 1; i <= length; i++)
+        {      
+            //calculating the multiples of the number given (e.j 3*1, 3*2...etc)
+            var multiple = number * i;
+            totalNums.Add(multiple);
+        }
 
-        return []; // replace this return statement with your own
+        //converting the doubles into an array.
+        return  totalNums.ToArray();
     }
 
     /// <summary>
@@ -25,9 +34,23 @@ public static class Arrays
     /// </summary>
     public static void RotateListRight(List<int> data, int amount)
     {
-        // TODO Problem 2 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+        // 1. Find where the list should be split
+        var splitIndex = data.Count - amount;
+        
+        // 2. Get the last "amount" elements
+        var lastpart = data.GetRange(splitIndex, amount);
+
+
+        // 3. Get the first part of the list
+        var firstpart = data.GetRange(0, splitIndex);
+        // 4. Rebuild the list in rotated order
+        //clearing list
+        data.RemoveRange(0, data.Count);
+
+        //add last part
+        data.AddRange(lastpart);
+
+        //adding first part
+        data.AddRange(firstpart);
     }
 }
