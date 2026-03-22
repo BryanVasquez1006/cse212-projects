@@ -22,7 +22,30 @@ public static class SetsAndMaps
     public static string[] FindPairs(string[] words)
     {
         // TODO Problem 1 - ADD YOUR CODE HERE
-        return [];
+        var seen = new HashSet<string>();
+        var pairs = new List<string>();
+
+        for (int i = 0; i < words.Length; i++)
+        {
+            var reversed =  new string(words[i].Reverse().ToArray());
+
+            if(words[i][0] == words[i][1])
+            {
+                continue;
+            }
+
+            if (seen.Contains(reversed))
+            {
+                pairs.Add($"{reversed} & {words[i]}");
+            }
+            else
+            { 
+                seen.Add(words[i]);
+            }
+        }
+        
+
+        return pairs.ToArray();
     }
 
     /// <summary>
@@ -43,6 +66,14 @@ public static class SetsAndMaps
         {
             var fields = line.Split(",");
             // TODO Problem 2 - ADD YOUR CODE HERE
+            if(degrees.ContainsKey(fields[3]))
+            {
+                degrees[fields[3]] += 1;
+            }
+            else
+            {
+                degrees.Add(fields[3], 1);
+            }
         }
 
         return degrees;
@@ -67,7 +98,47 @@ public static class SetsAndMaps
     public static bool IsAnagram(string word1, string word2)
     {
         // TODO Problem 3 - ADD YOUR CODE HERE
-        return false;
+        var _words = new Dictionary<char, int>();
+        word1 = word1.Replace(" ", "").ToLower();
+        word2 = word2.Replace(" ", "").ToLower();
+
+        if (word1.Length != word2.Length)
+        {
+            return false;
+        }
+
+        foreach(var letter in word1)
+        {
+            if (_words.ContainsKey(letter))
+            {
+                _words[letter] += 1;
+            }
+            else
+            {
+                _words.Add(letter, 1);
+            }
+
+        }
+
+        foreach(var letter in word2)
+        {
+            if(_words.ContainsKey(letter))
+            {
+                _words[letter] -= 1;
+            }
+            else
+            {
+                return false;
+            }
+
+            if(_words[letter] < 0)
+            {
+                return false;
+            }
+        }
+
+        
+        return true;
     }
 
     /// <summary>
