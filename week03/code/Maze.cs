@@ -102,3 +102,13 @@ public class Maze
         return $"Current location (x={_currX}, y={_currY})";
     }
 }
+
+
+
+
+
+
+
+
+
+
